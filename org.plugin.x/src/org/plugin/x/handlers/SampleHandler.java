@@ -33,6 +33,7 @@ public class SampleHandler extends AbstractHandler {
 							window.getShell(),
 							"X",
 							txt);
+		            
 		            scrap(txt);
 		        }
 		    }
