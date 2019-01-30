@@ -1,4 +1,5 @@
 package org.plugin.x.handlers;
+import java.io.IOException;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
@@ -12,8 +13,9 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.TextSelection;
 import org.eclipse.jface.viewers.ISelection;
-import org.*;
-import com.*;
+import org.jsoup.*;
+import org.jsoup.nodes.Document;
+
 public class SampleHandler extends AbstractHandler {
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
@@ -31,7 +33,7 @@ public class SampleHandler extends AbstractHandler {
 		            String txt=textSel.getText();
 		            MessageDialog.openInformation(
 							window.getShell(),
-							"X",
+							"Selected text",
 							txt);
 		            
 		            scrap(txt);
@@ -42,10 +44,19 @@ public class SampleHandler extends AbstractHandler {
 		}
 		return null;
 	}
-
 	private void scrap(String txt) {
-	//	WebDriver driver =new FirefoxDriver();
-		
+		Document doc = null;
+		try {
+			 doc = Jsoup.connect("http://code-search.uni.lu/facoy").data("q",txt).get();
+			  // System.out.println(doc.outerHtml());
+			 for (org.jsoup.nodes.Element item : doc.select("div.snippet_item table.highlighttable tr")) {
+				String data_item=item.select(".code").text();
+				System.out.println(data_item);
+			}
+			 
+		} catch (IOException e) {
+			System.out.println("Submission failed");
+			e.printStackTrace();
+		}
 	}
-	
 }

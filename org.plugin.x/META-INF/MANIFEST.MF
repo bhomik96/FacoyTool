@@ -3,8 +3,10 @@ Bundle-ManifestVersion: 2
 Bundle-Name: X
 Bundle-SymbolicName: org.plugin.x;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Require-Bundle: org.eclipse.ui
+Require-Bundle: org.eclipse.ui,
+ org.jsoup;bundle-version="1.7.2"
 Automatic-Module-Name: org.plugin.x
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: org.eclipse.jface.text,
- org.eclipse.ui.texteditor
+ org.eclipse.ui.texteditor,
+ org.jsoup;version="1.7.2"
